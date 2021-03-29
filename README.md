@@ -25,30 +25,28 @@ This course should provide you with a solid basis which you can use to then furt
 
 ## Competences
 
-After this course, you should have a basic understanding of the workings of R, and you should be able to use it to load your own data and carry out basic graphical and statistical explorations on your data. Also, you should have acquired sufficient background knowledge in order to know what the possibilities are in terms of more advanced analyses, and where you can find the necessary resources to delve into those sorts of analysis on your own.
+After this course, you should have a basic understanding of the workings of R, and you should be able to use it to load your own data and carry out basic graphical and descriptive statistical explorations on your data. Also, you should have acquired sufficient background knowledge in order to know what the possibilities are in terms of some more advanced analyses, and where you can find the necessary resources to delve into those sorts of analysis on your own.
 
 ## Previous knowledge
 
-No previous experience with R is required, although researchers are welcome to take the course as a refresher. 
-Some basic knowledge of descriptive and very basic inferential statistics (e.g. correlation, t-tests, etc.) is recommended.
-Important: you will need to bring your own laptop computer to the course, with the R package (https://cran.r-project.org) and the visual interface RStudio (https://www.rstudio.com) already installed. If this is a problem, contact the course instructor in advance. 
+No previous experience with R is required. Some basic knowledge of very basic descriptive statistics is recommended. Important: you will need to bring your own laptop computer to the course, with the R package (https://cran.r-project.org) and the visual interface RStudio (https://www.rstudio.com) already installed. If this is a problem, contact the course instructor in advance. 
 
 ## Content
 
 This course will deal with:
 
 -	An introduction to working with R and RStudio
--	Data structures and data importation in R
--	Basic programming functions which can be used to carry out common, repetitive tasks (e.g. loops, writing your own functions, etc.)
+-	Data structures and data classes in R
+-	Basic programming functions to carry out common, repetitive tasks (e.g. loops, writing your own functions, etc.)
+-	Data import, data cleaning and data transformation (using the Tidyverse framework)
 -	Some basics of working with textual data in R (time permitting)
 -	Data exploration and descriptive statistics (e.g. mean, medians, measures of dispersion, etc.)
--	Introduction to data visualization with the base package (e.g. barplots, scatterplots, histograms, etc.)
--	Basic parametric and non-parametric inferential statistics (e.g. tests of independence, correlation and linear regression, etc.)
+-	Data visualization with the base package and ggplot (e.g. barplots, scatterplots, histograms, etc.)
 
-Note that this course is *not* an introduction to statistics. It assumes that researchers already have a basic familiarity with intro-level statistical concepts and tests (e.g. correlation, t-tests, etc.), but it will teach researchers how to carry out, interpret, and visualize the results of such tests in R. 
+Note that this course is not an introduction to statistics, which will be dealt with in a follow-up course, building on this ‘basics in R’ module. 
 
 ## Study material
-Online material (scripts, notes and exercises) available on https://github.com/rikvosters/Basics-in-R
+Online material (scripts, notes and exercises) available on https://github.com/rikvosters/Basics-in-R-TVO
 
 ## Contact
 
