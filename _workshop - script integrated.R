@@ -1,47 +1,13 @@
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 ###                                                                     ###
-###    Workshop: Basics in R for people who are afraid of computers     ###
-###                  DSh - VUB - September 2020                         ###
+###             Workshop: Basics in R for Talent voor Onderzoek         ###
+###                          LW - VUB - 2021                            ###
 ###             Rik Vosters - Vrije Universiteit Brussel                ###
-###             Rik.Vosters@vub.ac.be | www.rikvosters.be               ###
+###               Rik.Vosters@vub.be | www.rikvosters.be                ###
 ###                                                                     ###
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-# 1. GETTING STARTED
-# 2. BASIC VECTORS
-# 2.1 Numeric vectors
-# 2.2 Character vectors
-# 3. DATAFRAMES, SUBSETTING AND DATA IMPORT
-# 3.1 Data frames
-# 3.2 Subsetting
-# 3.3 Importing data
-# 3.4 An alternative approach: tidyverse/dplyr
-# 3.5 Other types of data structures
-# 4. DATA CLEANING AND MANIPULATION
-# 4.1 Data classes
-# 4.2 Basic manipulations
-# 4.3 Long and wide data
-# 4.4  Merging datasets and working with metadata
-# 4.5  Loading multiple files (loops and lapply)
-# 5. ANALYZING TEXTUAL DATA
-# 5.1 Loading text files
-# 5.2 Basic text manipulation
-# 5.3 Powersearching and regular expressions
-# 5.4 Lemmatizing and POS tagging
-# 5.5 Frequency lists
-# 5.6 Keyness and word clouds
-# 5.7 Concordances and collocations
-# 6. DATA EXPLORATION AND VISUALIZATION
-# 6.1 Preparation
-# 6.2 Numerically summarizing - base package
-# 6.3 Visualization - base package
-# 6.4 Numerically summarizing - tidyverse/dplyr
-# 6.5 Visualization - tidyverse/ggplot
-# 7. BASIC STATISTICS
-# 7.1 Distributions
-# 7.2 Frequencies
-# 7.3 Means
-# 7.4 Correlations
+## Click in top right for table of contents!
 
 
 ### 1. GETTING STARTED -----
@@ -139,7 +105,7 @@ rm(list = ls(all = TRUE))
 
 # set working directory
 setwd("")
-setwd("/Users/rikvosters/Dropbox/@ Documenten/Colleges - courses/_Gastcolleges/2020.05 DSh workshop - Basics in R/Basics-in-R")
+setwd('/Users/rikvosters/Dropbox/@ Documenten/Colleges - courses/_Gastcolleges/2021.03 TVO workshop - Basics in R/Basics-in-R-TVO')
 getwd()
 # Windows: setwd(choose.dir())
 # Linux: tk_choose.files() does same thing - library(tcltk)
@@ -149,16 +115,13 @@ getwd()
 # Working with packages
 
 # first, once:
-install.packages("stylo")
+install.packages("tidyverse")
 
 # then, every session before using it or at the beginning of the script:
-library(stylo)
+library(tidyverse)
 
 # want to know more about the package?
-help(package = stylo) # or write in 'Help' window
-
-install.packages("tidyverse") # once
-library(tidyverse)
+help(package = readxl) # or write in 'Help' window
 
 # alternatively:
 # Packages > Install Packages | Tools > Install Packages
@@ -212,13 +175,6 @@ vecky
 vecky[1]
 vecky[1:3]
 vecky[c(2, 3)]
-
-# generating vectors
-1:35
-1:1000
-seq(from = 7, to = 9.5, by = 0.25)
-rep(1:4, 3)
-rep("abc", 3) # also for non-numerical vectors, cf. below
 
 # some more data
 wordcounts <- rnorm(100, mean = 180, sd = 40) # Generate normally distributed
@@ -427,7 +383,7 @@ head(OE, 3) # specify number of rows
 # TYPE 1: CSV - comma-separated (text) files
 
 # be sure to set the working directory (or give a full path)
-setwd("/Users/rikvosters/Dropbox/@ Documenten/Colleges - courses/_Gastcolleges/2020.05 DSh workshop - Basics in R/Basics-in-R")
+getwd()
 
 # load
 shark <- read.csv("SharkAttacks_sample.csv") # based on: https://data.world/shruti-prabhu/shark-attacks
@@ -625,7 +581,7 @@ babynames %>%
 read.csv("", sep = "\t", quote = "")
 
 
-### 3.5 Other types of data structures -----
+### 3.5 Other types of data structures ** -----
 
 # matrix
 matrix(1:20, nrow = 5, ncol = 4)
@@ -931,7 +887,7 @@ df
 
 # Load a collection on US age-adjusted death rates for selected major causes of death per 100,000 U.S. inhabitants (1900-2013) (source: https://data.world/health/death-rates-for-major-causes), located online ("https://raw.githubusercontent.com/rikvosters/Basics-in-R/master/DeathRatesforMajorCauses_wide.csv"). Transform it from its current (very) wide format to a long data format. Then, filter out the death rates per year for 'Influenza and Pneumonia', and make an appropriate plot of this. Finally, make a similar plot comparing the death rates per year for all of the major causes of death in the dataset. Save the last plot as a pdf.
 
-### 5. ANALYZING TEXTUAL DATA -----
+### 5. ANALYZING TEXTUAL DATA (**) -----
 
 # empty workspace
 rm(list = ls(all = TRUE))
@@ -1006,7 +962,7 @@ split # returns a list (two levels)
 # unlist (= collapse into one level)
 unlist(split)
 
-### 5.3 Powersearching and regular expressions -----
+### 5.3 Powersearching and regular expressions ** -----
 
 # Find: grep()
 
@@ -1253,7 +1209,7 @@ write_xlsx(freq.trump, path = "freqlist_trump.xlsx")
 # Load Charles Dickens' novel A Tale of Two Cities ("https://raw.githubusercontent.com/rikvosters/Basics-in-R/master/Dickens-TwoCities.txt") as separate words into R. Then remove punctuation and make the entire text uppercase. Also filter out stopwords using the stopwords() function, and make a sorted frequency table, which you save as an Excel spreadsheet.
 
 
-### 5.6 Keyness and word clouds -----
+### 5.6 Keyness and word clouds ** -----
 
 # A. Keyness
 
@@ -1623,7 +1579,7 @@ tt
 round(prop.table(table(tt$Survived, tt$Age_fct), 2), 3)*100
 
 
-### 6.3 Visualization - base package -----
+### 6.3 Visualization - base package ** -----
 
 # HISTOGRAMS AND QQPLOTS
 
@@ -1896,7 +1852,7 @@ tt %>%
   ggplot(aes(x = Age, y = Fare)) +
   geom_point() +
   geom_smooth(method = "lm") +
-  theme_bw() # google ggplot themes
+  theme_bw() # google 'ggplot themes'
 
 # HISTOGRAMS, QQPLOTS AND DENSITY PLOTS
 
@@ -2089,7 +2045,7 @@ sample %>%
 # Make a boxplot and a violin plot of the arrival delay for airline companies AA (American Airlines), DL (Delta) and US (US Airways), so you can check out which of these three companies holds the record in terms of arrival delay.
 
 
-### 7. BASIC STATISTICS -----
+### 7. BASIC STATISTICS ** -----
 
 # Based on Gries' 2013 - Statistics for Linguistics with R
 
