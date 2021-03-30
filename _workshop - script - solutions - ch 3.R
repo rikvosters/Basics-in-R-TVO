@@ -97,6 +97,12 @@ shark %>%
   select(Age) %>% 
   head(1)
 
+shark %>% 
+  filter(Fatal == "Y") %>% 
+  filter(Country == "AUSTRALIA") %>% 
+  select(Age) %>% 
+  max(na.rm = T)
+
 # base package alternative:
 max(shark$Age[shark$Fatal == "Y" & shark$Country == "AUSTRALIA"], na.rm = T)
 
@@ -111,3 +117,12 @@ shark %>%
 # base package alternative:
 shark$Name[shark$Age < 16 & shark$Year > 1900 & shark$Country == "NEW ZEALAND"]
 unique(shark$Name[shark$Age < 16 & shark$Year > 1900 & shark$Country == "NEW ZEALAND"])
+
+
+# country names to lower case
+haai %>%
+  mutate(Country_lowercase = tolower(Country)) -> haai
+head(haai)
+
+# base package alternative:
+haai$Country <- tolower(haai$Country)

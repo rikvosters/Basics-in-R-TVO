@@ -471,9 +471,10 @@ wordcounts <- rnorm(100, mean = 180, sd = 40)
 
 # for sequential code rather than embedded functions (CMD + shift + M)
 
-wordcounts %>%
-  sort() %>%
+wordcounts %>% 
+  sort() %>% 
   plot()
+
 # is the same as:
 plot(sort(wordcounts))
 
@@ -499,6 +500,7 @@ babynames %>%
   filter(name == "Dwight") %>%
   filter(sex == "M") %>%
   ggplot(aes(x = year, y = prop)) +
+  geom_point() +
   geom_line()
 
 # possibility to match more flexibly (e.g. regular expressions)
@@ -533,7 +535,7 @@ babynames %>%
 
 babynames %>%
   filter(year == 1950) %>%
-  arrange(name, sex)
+  arrange(-n, name, sex)
 
 babynames %>%
   filter(year == 1950) %>%
@@ -576,10 +578,9 @@ babynames %>%
 # Load and explore the data on shark attacks from the internet (https://raw.githubusercontent.com/rikvosters/Basics-in-R/master/SharkAttacks.csv). It is a tab separated file, so be sure to use the argument sep="\t". Also, it uses quotation marks in the text, so add the argument quote="". Browse through this dataset of almost 6000 documented shark attackes in history and try to answer the following questions, using either the base R package or tidyverse/dplyr:
 # - How many people died of a shark attack in 2017?
 # - Check if more shark attacks occurred in the 10 years before the movie Jaws came out in 1975, compared to 10 years after Jaws.
-# - How old was the oldest Australian every to die from a shark attack?
+# - How old was the oldest Australian ever to die from a shark attack?
 # - Extract the names of all New Zealand victims of shark attacks in the 20th century, under the age of 16.
-read.csv("", sep = "\t", quote = "")
-
+haai <- read.csv("https://raw.githubusercontent.com/rikvosters/Basics-in-R/master/SharkAttacks.csv", sep = "\t", quote = "")
 
 ### 3.5 Other types of data structures ** -----
 
@@ -634,6 +635,11 @@ class(dog$COLOR)
 dog$OWNER_SEX <- as.factor(dog$OWNER_SEX)
 dog$OWNER_SEX
 
+# Convert all character vectors to factors
+# dog %>% mutate_if(is.character, as.factor) -> dog
+# dog
+
+
 # cf. as.numeric(), as.character(), etc.
 
 # levels
@@ -651,7 +657,8 @@ levels(dog$OWNER_SEX)
 barplot(table(dog$OWNER_SEX))
 
 # alternative (even easier):
-fct_relevel(dog$OWNER_SEX, "w", "m")
+dog$OWNER_SEX <- fct_relevel(dog$OWNER_SEX, "w", "m")
+dog$OWNER_SEX
 fct_relevel(dog$OWNER_SEX, "w")
 
 # rename factor levels: fct_recode()
@@ -742,6 +749,8 @@ dog_sample <- sample_n(dog, 1000)
 #### --- | exercise: dogs of Zuerich ---####
 
 # Reload the Dogs of Zuerich csv file (https://raw.githubusercontent.com/rikvosters/Basics-in-R/master/DogsOfZuerich.csv).Recode the 'TYPE_BREED' variable into a new 'SIZE' variable. 'K' stands for 'Kleinwüchsig' and represents small dogs, while 'I' and 'II' stand for 'Rassentypenliste I' and 'II', representing larger dogs. Check the proportion of small versus large dogs in Zurich, and check if women are more likely to have small dogs than men. Finally, if you have to buy a dog for your 85 year old grandmother, what specific breed would have the highest probability of her liking it, given her age and gender?
+
+dog <- read.csv("https://raw.githubusercontent.com/rikvosters/Basics-in-R/master/DogsOfZuerich.csv", sep=";", na.strings = "")
 
 
 ### 4.3 Long and wide data -----
