@@ -174,7 +174,7 @@ vecky
 # subsetting - access one specific element of that vector
 vecky[1]
 vecky[1:3]
-vecky[c(2, 3)]
+vecky[c(2, 4)]
 
 # some more data
 wordcounts <- rnorm(100, mean = 180, sd = 40) # Generate normally distributed
@@ -222,7 +222,7 @@ wordcounts[wordcounts >= 200]
 #     ==  Equal to
 #     !=  Unequal to
 #  is.na  Has missing values (NA)
-# !is.ba  Does not have missing values (not NA)
+# !is.na  Does not have missing values (not NA)
 
 wordcounts[wordcounts != 210]
 wordcounts[wordcounts >= 210]
