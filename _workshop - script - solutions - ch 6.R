@@ -47,7 +47,7 @@ df %>%
   select(Year, DayOfWeek, DepTime, UniqueCarrier, AirTime, ArrDelay, Dest, Distance, Cancelled, CancellationCode) -> df
 
 # % cancelled - base
-round(prop.table(table(df$Cancelled)),3)*100
+round(prop.table(table(df$Cancelled)),4)*100
 barplot(round(prop.table(table(df$Cancelled)),3)*100)
 
 # % cancelled - tidyverse
@@ -73,9 +73,7 @@ df %>%
 df %>% 
   filter(UniqueCarrier %in% c("AA", "EV")) %>% 
   group_by(DayOfWeek, UniqueCarrier) %>% 
-  summarise(Total_Airtime = sum(AirTime, na.rm = T)) -> airtime_days
-airtime_days
-airtime_days %>%
+  summarise(Total_Airtime = sum(AirTime, na.rm = T)) %>%
   ggplot(aes(x = DayOfWeek, y = Total_Airtime)) +
   geom_bar(stat="identity") +        # also possible: geom_line
   facet_wrap(~ UniqueCarrier)

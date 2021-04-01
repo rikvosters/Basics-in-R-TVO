@@ -24,9 +24,10 @@ table(dog$SIZE[dog$OWNER_SEX=="m"])
 # alternative:
 prop.table(table(dog$SIZE[dog$OWNER_SEX=="w"]))
 prop.table(table(dog$SIZE[dog$OWNER_SEX=="m"]))
+prop.table(table(dog$SIZE, dog$OWNER_SEX),2)
 
 # dog breed for 85 year old grandmother
-sort(table(dog$BREED[dog$OWNER_SEX == "w" & dog$OWNER_AGE == "81-90"]))
+head(sort(table(dog$BREED[dog$OWNER_SEX == "w" & dog$OWNER_AGE == "81-90"]), decreasing=T),1)
 
 # alternative tidyverse/dplyr
 dog %>% 
@@ -106,10 +107,10 @@ head(metal)
 # name of the oldest Iranian metal band still together
 metal %>% 
   filter(origin == "Iran") %>% 
-  filter(is.na(split)) %>% 
+  filter(is.na(split)) %>%
   arrange(formed) %>% 
   head(1)
-
+head(metal, 10)
 # Mexican death metal bands
 metal %>% 
   filter(origin == "Mexico") %>% 
@@ -128,6 +129,7 @@ metal %>%
 # load 'DeathRatesforMajorCauses_wide.csv'
 dth <- read.csv("https://raw.githubusercontent.com/rikvosters/Basics-in-R/master/DeathRatesforMajorCauses_wide.csv", check.names = F)
 dth
+tibble(dth)
 
 # wide to long
 dth %>% 
@@ -140,4 +142,5 @@ dth
 # filter out and plot Age Adjusted Death Rate for Influenza and Pneumonia
 dth %>% 
   filter(LeadingCauses == "Influenza and Pneumonia") %>% 
-  ggplot(aes(x = Year, y = AgeAdjustedDeathRate)) + geom_line()
+  ggplot(aes(x = Year, y = AgeAdjustedDeathRate)) + 
+  geom_line()

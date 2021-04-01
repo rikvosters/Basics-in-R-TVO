@@ -790,6 +790,7 @@ popl %>%
   filter(Country %in% c("China", "India", "United States", "Serbia", "United Kingdom")) %>%
   ggplot(aes(x = Year, y = Population, col = Country)) +
   geom_line()
+options(scipen=999)
 
 # 2. Long to wide
 
@@ -832,7 +833,7 @@ head(neg) # success!
 # loops: easy way to automate repetitive tasks
 
 # loops have the following structure
-for (i in 1:total_iterations) { # we define a counter 'i', and
+for (i in 1:length(neg$Negation)) { # we define a counter 'i', and
   # define that it will run from 1 to
   # the total number of iterations
   functions # functions in the loop
@@ -840,7 +841,7 @@ for (i in 1:total_iterations) { # we define a counter 'i', and
 }
 
 # one example
-for (i in 1:50) { # define counter 'i' and iterate from 1 till 20
+for (i in 1:50000) { # define counter 'i' and iterate from 1 till 20
   # function cat() (= print on screen) will run for 20 times
   # with the element i in it
   cat("This is iteration number", i, "\n", sep = " ") # 'cat()' is similar to 'print'
@@ -862,7 +863,7 @@ data.files
 
 # also, already created an empty character vector into which the whole data file will be loaded
 data <- data.frame()
-
+i=2
 # start the loop
 for (i in 1:length(data.files)) {   # iterate over file names 
   # read in corpus file as lower case and save it in current.file
@@ -1444,7 +1445,7 @@ exact.matches("half", corpus, characters.around = 10)[[4]]
 # load packages
 library(tidyverse)
 library(readxl)
-library(writexl)
+library(writexl) # install.packages("writexl") # eenmalig
 
 # empty workspace
 rm(list=ls(all=TRUE))
@@ -1465,7 +1466,7 @@ tt
 tt
 str(tt)
 summary(tt)
-
+tt$Sex <- as.factor(tt$Sex)
 # Oops, we forgot to make Survived and Class into factors
 class(tt$Survived)
 class(tt$Class)
@@ -1620,7 +1621,7 @@ plot(tt$Age, tt$Fare)
 plot(tt$Age_fct, tt$Fare)
 
 # compare:
-plot(tt$Age_fct, tt$Fare, ylim = c(0,300))
+plot(tt$Age_fct, tt$Fare, ylim = c(0,150))
 
 # option: rotate axis labels
 plot(tt$Age_fct, tt$Fare, ylim = c(0,300), las = 2)
@@ -1656,7 +1657,7 @@ aze <- barplot(table(tt$Survived))
 aze #  x-axis coordinates
 
 # add text
-text(aze, table(tt$Survived)/2, table(tt$Survived)) 
+text(aze, table(tt$Survived)+20, table(tt$Survived)) 
 # arguments: 
 # 1. x-coord. (= aze) 
 # 2. y-coord. (= table/2 = halfway to the top of each bar)
@@ -1749,7 +1750,7 @@ tt %>%
 # you can add various summary functions
 tt %>% 
   group_by(Embarked) %>% 
-  summarise(mean_fare = mean(Fare),
+  summarise(mean_fare = mean(Fare), 
             stddev_fare = sd(Fare),
             median_fare = median(Fare),
             IQR_fare = IQR(Fare))
@@ -1796,7 +1797,7 @@ tt %>%
   filter(is.na(Age_fct) == FALSE) %>%
   group_by(Age_fct) %>% 
   summarise(mean_fare = mean(Fare)) %>% 
-  mutate(rank_fare = rank(mean_fare))
+  mutate(rank_fare = rank(desc(mean_fare)))
 
 ### 6.5 Visualization - tidyverse/ggplot -----
 
@@ -1831,7 +1832,7 @@ tt %>%
   filter(Class == "1") %>% 
   ggplot(aes(x = Age, y = Fare)) +
   geom_point() +
-  geom_smooth(method = "lm") # see: ?geom_smooth: lm, loess, gam, ...
+  geom_smooth(method = "loess") # see: ?geom_smooth: lm, loess, gam, ...
 
 tt %>% 
   filter(Class == "1") %>% 
@@ -1880,7 +1881,7 @@ tt %>%
 
 tt %>% 
   ggplot() +
-  geom_qq(aes(sample = Fare))
+  geom_qq()
 
 # SCATTER PLOTS
 
@@ -1943,9 +1944,9 @@ tt %>%
   filter(is.na(Embarked) == FALSE) %>%
   group_by(Embarked) %>% 
   summarise(mean_fare = mean(Fare)) %>% 
-  ggplot(aes(x = Embarked, y = mean_fare)) +
+  ggplot(aes(x = Embarked, y = mean_fare, label = round(mean_fare,1))) +
   geom_bar(stat="identity", fill = "darkolivegreen4") + # color
-  geom_text(aes(label = round(mean_fare,1)), vjust = -0.5) # add text
+  geom_text(vjust = -0.5) # add text
 
 
 # add extra aesthetic 
@@ -2045,7 +2046,7 @@ sample %>%
 
 ####--- | exercise: flights ---####
 
-# Install and load the 'flights' package, and then assign the element 'hflight' to a new dataframe of your choice. Also convert it into a tibble, and then select the variables Year, DayOfWeek, DepTime, UniqueCarrier, AirTime, ArrDelay, Dest, Distance, Cancelled, and CancellationCode, removing the others. Now, try to explore yoru data to answer the following questions:
+# Install and load the 'hflights' package, and then assign the element 'hflight' to a new dataframe of your choice. Also convert it into a tibble, and then select the variables Year, DayOfWeek, DepTime, UniqueCarrier, AirTime, ArrDelay, Dest, Distance, Cancelled, and CancellationCode, removing the others. Now, try to explore yoru data to answer the following questions:
 # Which percentage of flights was cancelled in 2011? Visualize in a barplot.
 # Calculate the percentage of flights cancelled versus the percentage of flights not cancelled, and visualize this in a simple barplot.
 # Recode CancellationCode ("carrier" = "A", "weather" = "B", "FFA" = "C", "security" = "D") and use it to find out what the major cause of flight cancellations is.
@@ -2189,4 +2190,5 @@ summary(model)
 
 ####--- | exercise: female chess players ---#####
 
-# Load a dataframe (source: https://www.kaggle.com/vikasojha98/top-women-chess-players) with recent scores by female chess players. Read it as csv and convert it to a tibble, but remove the variables 'Inactive_flag' and 'Gender'. Then, split the variable 'Age' up into 3 predefined groups (young = under 30, middle = 30-60, older = 60+), and split variable 'Standard_Rating' into 3 groups ("low", "medium", "high" -- allowing R to determine the exact cut-off points itself). Next, check out a possible effect of the (now) ordinal variable 'Age' on the ordinal variable 'Rating' -- explore numerically, graphically, and statistically. Finally, convert the dataset from a wide to a long format, and plot year of birth and rating (but only for the 'Blitz_rating' type), for both Russian (RUS) and Polish (POL) players in different colors, and add a LOESS smoother (method = "loess") for each group.
+# Load the "women_chess.csv" dataframe (source: https://www.kaggle.com/vikasojha98/top-women-chess-players) with recent scores by female chess players. Read it as csv and convert it to a tibble, but remove the variables 'Inactive_flag' and 'Gender'. Then, split the variable 'Age' up into 3 predefined groups (young = under 30, middle = 30-60, older = 60+), and split variable 'Standard_Rating' into 3 groups ("low", "medium", "high" -- allowing R to determine the exact cut-off points itself). Next, check out a possible effect of the (now) ordinal variable 'Age' on the ordinal variable 'Rating' -- explore numerically, graphically, and statistically. Finally, convert the dataset from a wide to a long format, and plot year of birth and rating (but only for the 'Blitz_rating' type), for both Russian (RUS) and Polish (POL) players in different colors, and add a LOESS smoother (method = "loess") for each group.
+ch <- read.csv("women_chess.csv")
